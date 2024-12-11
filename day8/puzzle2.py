@@ -57,7 +57,9 @@ def main():
                             print('None')
                         antennas[char] = [(row, col)]
                     else:
+                        antinodes.add((row, col))
                         for pos in positions:
+                            antinodes.add((pos[0], pos[1]))
                             x_diff = col - pos[1]
                             y_diff = row - pos[0]
 
@@ -67,15 +69,25 @@ def main():
                             anti2_x = row + y_diff
                             anti2_y = col + x_diff
 
-                            if anti1_x >= 0 and anti1_y >= 0:
+                            while anti1_x < X and anti1_y < Y and anti1_x >= 0 and anti1_y >= 0 :
+
                                 antinodes.add((anti1_x, anti1_y))
-                            if anti2_x >= 0 and anti2_y >= 0:
+
+                                anti1_x = anti1_x - y_diff
+                                anti1_y = anti1_y - x_diff
+
+                            while anti2_x < X and anti2_y < Y and anti2_x >= 0 and anti2_y >= 0 :
+
                                 antinodes.add((anti2_x, anti2_y))
-                            if debug == True:
-                                print(f'Possible antinodes for {pos} : ({anti1_x}, {anti1_y}) and ({anti2_x}, {anti2_y}).')
+
+                                anti2_x = anti2_x + y_diff
+                                anti2_y = anti2_y + x_diff
+
+                            # if debug == True:
+                            #     print(f'Possible antinodes for {pos} : ({anti1_x}, {anti1_y}) and ({anti2_x}, {anti2_y}).')
 
                         antennas[char].append((row, col))
-                        antinodes.add((row, col))
+
                     # print(f'{row}, {col}: {char}', end="")
             if debug == True:
                 if newline:

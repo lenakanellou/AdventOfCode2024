@@ -15,6 +15,7 @@ def main():
     unique_positions = set()
     x_dim = 0
     y_dim = 0
+    obstacle_queue = []
 
     with open(filename, 'r') as file:
         for row, line in enumerate(file):
@@ -72,6 +73,7 @@ def main():
                     sys.exit(1)
 
                 print(f'Found # at position {next_position[0]}x{next_position[1]}. Current position is {guard_position[0]}x{guard_position[1]}. Changing direction to {guard_direction}')
+                obstacle_queue.append((next_position[0], next_position[1]))
                 next_position[0] = guard_position[0]
                 next_position[1] = guard_position[1]
             else:
